@@ -41,6 +41,16 @@ RUN mkdir -p /var/opt/mssql/data && \
 RUN chmod 755 /opt/mssql-tools/bin/uid_entrypoint
 RUN /opt/mssql/bin/mssql-conf set sqlagent.enabled true
 
+# Create script directory
+RUN mkdir -p /usr/src/scripts
+WORKDIR /usr/src/scripts
+
+# copy .sql scripts from source
+COPY . /usr/src/scripts
+
+# Grant permissions for the import-data script to be executable
+RUN chmod +x /usr/src/scripts/create-dba-database.sh
+
 ### Containers should not run as root as a good practice
 USER 10001
 
@@ -52,4 +62,4 @@ VOLUME /var/opt/mssql/data
 ### user name recognition at runtime w/ an arbitrary uid - for OpenShift deployments
 ENTRYPOINT [ "/opt/mssql-tools/bin/uid_entrypoint" ]
 # Run SQL Server process
-CMD sqlservr
+CMD /bin/bash ./entrypoint.sh
