@@ -1,6 +1,6 @@
 # mssql-server-rhel
-# Maintainers: Travis Wright (twright-msft on GitHub)
-# GitRepo: https://github.com/twright-msft/mssql-server-rhel
+# Original Maintainers: Travis Wright (twright-msft on GitHub)
+# GitRepo: https://github.com/sqlservermigrations/containers
 
 # Base OS layer: latest RHEL 7
 
