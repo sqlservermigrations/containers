@@ -49,7 +49,7 @@ WORKDIR /usr/src/scripts
 COPY . /usr/src/scripts
 
 # Grant permissions for the import-data script to be executable
-RUN chmod +x /usr/src/scripts/create-dba-database.sh
+RUN chmod +x /usr/src/scripts/setup-tools.sh
 
 ### Containers should not run as root as a good practice
 USER 10001
