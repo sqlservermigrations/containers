@@ -45,7 +45,7 @@ RUN /opt/mssql/bin/mssql-conf set sqlagent.enabled true
 RUN mkdir -p /usr/src/scripts
 WORKDIR /usr/src/scripts
 
-# copy .sql scripts from source
+# copy scripts from source
 COPY . /usr/src/scripts
 
 # Grant permissions for the import-data script to be executable
