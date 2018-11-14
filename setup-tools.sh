@@ -2,7 +2,7 @@
 sleep 30s
 
 #run the setup script to create the DB and the schema in the DB
-sqlfiles=( create-dba-database.sql tools-permission-snapshot.sql tools-ola-maintenancesolution.sql tools-sp-whoisactive.sql )
+sqlfiles=( create-dba-database.sql tools-permission-snapshot.sql tools-ola-maintenancesolution.sql tools-sp-whoisactive.sql tools-additional-jobs.sql )
 
 for file in "${sqlfiles[@]}"
 do 
