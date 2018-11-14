@@ -2,7 +2,7 @@
 # Original Maintainers: Travis Wright (twright-msft on GitHub)
 # GitRepo: https://github.com/sqlservermigrations/containers
 
-# Base OS layer: latest RHEL 7
+# Base OS layer: latest RHEL 7 hello
 
 FROM registry.access.redhat.com/rhel7
 
