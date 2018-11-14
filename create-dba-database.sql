@@ -1,4 +1,4 @@
-/****** Object:  Database [DBA]    Script Date: 11/13/2018 2:36:46 PM ******/
+/****** Object:  Database [DBA]    Script Date: 11/13/2018 2:36:47 PM ******/
 CREATE DATABASE [DBA]
  CONTAINMENT = NONE
  ON  PRIMARY 
