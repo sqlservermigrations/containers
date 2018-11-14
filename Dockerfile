@@ -3,8 +3,10 @@
 # GitRepo: https://github.com/sqlservermigrations/containers
 
 # Base OS layer: latest RHEL 7
+# FROM registry.access.redhat.com/rhel7
 
-FROM registry.access.redhat.com/rhel7
+# Base OS layer: latest CentOS 7
+FROM centos:7
 
 ### Atomic/OpenShift Labels - https://github.com/projectatomic/ContainerApplicationGenericLabels
 LABEL name="microsoft/mssql-server-linux" \
