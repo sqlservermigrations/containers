@@ -33,7 +33,7 @@ sudo docker build . -t sqlservermigrations/mssqlserver:2019_CTP2.1
 
 # Starting a mssql-server instance
 - Verify the image was built successfully.  `docker images` should display the image.
-```#!/bin/bash
+```bash
 sudo docker images
 
 
