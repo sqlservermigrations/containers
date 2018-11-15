@@ -3,10 +3,8 @@
 # GitRepo: https://github.com/sqlservermigrations/containers
 
 # Base OS layer: latest RHEL 7
-# FROM registry.access.redhat.com/rhel7
 
-# Base OS layer: latest CentOS 7
-FROM centos:7
+FROM registry.access.redhat.com/rhel7
 
 ### Atomic/OpenShift Labels - https://github.com/projectatomic/ContainerApplicationGenericLabels
 LABEL name="microsoft/mssql-server-linux" \
@@ -27,10 +25,12 @@ LABEL name="microsoft/mssql-server-linux" \
 ### add licenses to this directory
 ### COPY licenses /licenses
 
-# Install latest mssql-server package   
-RUN curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/config/rhel/7/mssql-server-preview.repo && \
+# Install latest mssql-server package
+RUN REPOLIST=rhel-7-server-rpms,packages-microsoft-com-mssql-server-preview,packages-microsoft-com-prod && \
+    curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/config/rhel/7/mssql-server-preview.repo && \
     curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/7/prod.repo && \
-    ACCEPT_EULA=Y yum install -y mssql-server mssql-tools unixODBC-devel && \
+    ACCEPT_EULA=Y yum -y install --disablerepo "*" --enablerepo ${REPOLIST} --setopt=tsflags=nodocs \
+      mssql-server mssql-server-fts mssql-tools unixODBC-devel && \
     yum clean all
 
 COPY uid_entrypoint /opt/mssql-tools/bin/
