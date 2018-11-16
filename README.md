@@ -50,9 +50,7 @@ sudo docker images
 - You should see the new image listed.
 - Next use `docker run` to start a container using the image.
 ```sh
-sudo docker run -e 'ACCEPT_EULA=Y' /
--e 'SA_PASSWORD=YourStrongP@ssword' --name mssql2019 /
--p 1433:1433 -d sqlservermigrations/mssqlserver:2019_CTP2.1
+sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=YourStrongP@ssword' --name mssql2019 -p 1433:1433 -d sqlservermigrations/mssqlserver:2019_CTP2.1
 ```
 
 # Connect to Microsoft SQL Server
