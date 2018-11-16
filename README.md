@@ -28,7 +28,7 @@ The image created by this Dockerfile utilizes the Red Hat based Microsoft SQL Se
 
 # Building the image using a RHEL VM
 - ssh to the RHEL VM.
-- Verify that docker is running `sudo systemctl status docker.service`
+- Verify that docker is running `sudo systemctl status docker`
 - Make a directory to clone the repository to and then clone
 ```sh
 mkdir ~/sqlservermigrations
