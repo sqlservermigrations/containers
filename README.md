@@ -1,5 +1,5 @@
 # Introduction
-The image created by this Dockerfile utilizes the Red Hat based Microsoft SQL Server 2019 CTP2.1 image.  The original source can be located at https://github.com/Microsoft/mssql-docker/blob/master/linux/preview/RHEL/Dockerfile.  The following modifications were made:
+The image created by this Dockerfile utilizes the Red Hat based Microsoft SQL Server 2019 CTP2.2 image.  The original source can be located at https://github.com/Microsoft/mssql-docker/blob/master/linux/preview/RHEL/Dockerfile.  The following modifications were made:
 
 - Enabled support for Full Text Services
 - Enable the SQL Server Agent
@@ -39,7 +39,7 @@ git clone https://github.com/sqlservermigrations/containers
 - Prior to building, set the password in setup-tools.sh.  For this example, it's set to YourStrongP@ssword.
 ```sh
 cd ~/sqlservermigrations/containers
-sudo docker build . -t sqlservermigrations/mssqlserver:2019_CTP2.1
+sudo docker build . -t sqlservermigrations/mssqlserver:2019_CTP2.2
 ```
 
 # Starting a mssql-server instance
@@ -50,7 +50,7 @@ sudo docker images
 - You should see the new image listed.
 - Next use `docker run` to start a container using the image.
 ```sh
-sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=YourStrongP@ssword' --name mssql2019 -p 1433:1433 -d sqlservermigrations/mssqlserver:2019_CTP2.1
+sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=YourStrongP@ssword' --name mssql2019 -p 1433:1433 -d sqlservermigrations/mssqlserver:2019_CTP2.2
 ```
 
 # Connect to Microsoft SQL Server
