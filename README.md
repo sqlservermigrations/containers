@@ -12,7 +12,7 @@ The image created by this Dockerfile utilizes the Red Hat based Microsoft SQL Se
 - Dockerfile - Used by `docker build` to build the image.
 - entrypoint.sh - Starts the setup-tools.sh script and starts the sqlservr service within the container.
 - setup-tools.sh - Bash script which uses sqlcmd to run the referenced *.sql scripts.
-- uid_entrpypoint - Used for Openshift deployments.
+- uid_entrypoint - Used for Openshift deployments.
 - create-dba-database.sql - Script used to create the DBA database.  Data and log files are placed within the default /var/opt/mssql/data directories.
 - tools-additional-jobs.sql - Creates two SQL Server agent jobs to cycle the error log each day and to snapshot all permissions.
 - tools-ola-maintenancesolution.sql - Deploys Ola Hallengren's SQL Server maintenance solution to the DBA database and creates the associated jobs.
