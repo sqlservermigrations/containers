@@ -1,5 +1,5 @@
 # mssql-server-rhel
-# Original Maintainers: Travis Wright (twright-msft on GitHub)
+# Original Maintainers: Luke Campbell
 # GitRepo: https://github.com/sqlservermigrations/containers
 
 # Base OS layer: latest Ubuntu 16.04
