@@ -1,0 +1,78 @@
+# mssql-server-rhel
+# Original Maintainers: Travis Wright (twright-msft on GitHub)
+# GitRepo: https://github.com/sqlservermigrations/containers
+
+# Base OS layer: latest Ubuntu 16.04
+
+FROM ubuntu:16.04
+
+### Atomic/OpenShift Labels - https://github.com/projectatomic/ContainerApplicationGenericLabels
+LABEL name="microsoft/mssql-server-linux" \
+      vendor="Microsoft" \
+      version="15.0" \
+      release="1" \
+      summary="MS SQL Server" \
+      description="MS SQL Server is ....." \
+### Required labels above - recommended below
+      url="https://www.microsoft.com/en-us/sql-server/" \
+      run='docker run --name ${NAME} \
+        -e ACCEPT_EULA=Y -e SA_PASSWORD=yourStrong@Password \
+        -p 1433:1433 \
+        -d  ${IMAGE}' \
+      io.k8s.description="MS SQL Server is ....." \
+      io.k8s.display-name="MS SQL Server"
+
+### add licenses to this directory
+### COPY licenses /licenses
+
+# install curl & sudo & apt-transport-https
+RUN apt-get update && apt-get install -y curl sudo && apt-get install -y apt-transport-https && apt-get install -y apt-utils
+ 
+# Import the public repository GPG keys
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+# Register the Microsoft SQL Server Ubuntu repository
+RUN curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server-preview.list | sudo tee /etc/apt/sources.list.d/mssql-server.list
+RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+ 
+# update package list 
+RUN apt-get update -y
+
+# INstall necessary locales
+RUN apt-get install -y locales \
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen
+
+# Install latest mssql-server package
+RUN ACCEPT_EULA=Y apt-get install -y mssql-server mssql-server-fts mssql-tools unixodbc-dev
+
+COPY uid_entrypoint /opt/mssql-tools/bin/
+ENV PATH=${PATH}:/opt/mssql/bin:/opt/mssql-tools/bin
+RUN mkdir -p /var/opt/mssql/data && \
+    chmod -R g=u /var/opt/mssql /etc/passwd
+
+RUN chmod 755 /opt/mssql-tools/bin/uid_entrypoint
+RUN /opt/mssql/bin/mssql-conf set sqlagent.enabled true
+
+# Create script directory
+RUN mkdir -p /usr/src/scripts
+WORKDIR /usr/src/scripts
+
+# copy scripts from source
+COPY . /usr/src/scripts
+
+# Grant permissions for the import-data script to be executable
+RUN chmod +x /usr/src/scripts/setup-tools.sh
+
+### Containers should not run as root as a good practice
+USER 10001
+
+# Default SQL Server TCP/Port
+EXPOSE 1433
+
+VOLUME /var/opt/mssql/data
+
+### user name recognition at runtime w/ an arbitrary uid - for OpenShift deployments
+ENTRYPOINT [ "/opt/mssql-tools/bin/uid_entrypoint" ]
+# Run SQL Server process
+CMD /bin/bash ./entrypoint.sh
